@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>MeetupTitle</title>
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <label v-for="el in elements" :key="el"><input type="radio" name="meetupId" :value="el" v-model="value"/> {{el}}</label>
+
+        <hr />
+
+        <h3>MEETUP_TITLE</h3>
+        {{ info?.title }}
+      </div>
+    </div>
+
+    <script type="module" src="./script.js"></script>
+  </body>
+</html>
