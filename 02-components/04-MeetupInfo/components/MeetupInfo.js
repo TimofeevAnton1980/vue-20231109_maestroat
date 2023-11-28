@@ -1,9 +1,5 @@
 import { defineComponent } from '../vendor/vue.esm-browser.js';
-const options = {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-};
+
 export default defineComponent({
   name: 'MeetupInfo',
   props: {
@@ -20,9 +16,19 @@ export default defineComponent({
       required: true
     }
   },
+  watch: {
+    date() {
+      this.formatAsLocalDate()
+    }
+  },
+
   methods: {
-    formatAsLocalDate(date) {
-      return new Date(date).toLocaleDateString(navigator.language, options);
+    formatAsLocalDate() {
+      return new Date(this.date).toLocaleDateString(navigator.language, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
     },
   },
 
@@ -38,7 +44,7 @@ export default defineComponent({
       </li>
       <li>
         <img class="icon meetup-info__icon" alt="icon" src="/assets/icons/icon-cal-lg.svg" />
-        <time :datetime="formatAsLocalDate(date)">{{ formatAsLocalDate(date) }}</time>
+        <time :datetime="formatAsLocalDate()">{{ formatAsLocalDate() }}</time>
       </li>
     </ul>`,
 });
