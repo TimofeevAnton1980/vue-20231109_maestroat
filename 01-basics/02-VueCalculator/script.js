@@ -7,27 +7,21 @@ const App = defineComponent({
       operation: null,
       numb_1: null,
       numb_2: null,
-      calc: 0
     };
   },
   computed: {
     funcCalc() {
       switch (this.operation) {
         case 'sum':
-          this.calc = this.numb_1 + this.numb_2
-          break;
+          return this.numb_1 + this.numb_2
         case 'subtract':
-          this.calc = this.numb_1 - this.numb_2
-          break;
+          return this.numb_1 - this.numb_2
         case 'multiply':
-          this.calc = this.numb_1 * this.numb_2
-          break;
+          return this.numb_1 * this.numb_2
         case 'divide':
-          this.calc = this.numb_1 / this.numb_2
-          break;
+          return this.numb_1 / this.numb_2
         default:
-          this.calc = 0
-          break;
+          return 0
       }
     },
   },

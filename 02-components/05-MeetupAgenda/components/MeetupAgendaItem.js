@@ -27,8 +27,8 @@ export default defineComponent({
       <div class="agenda-item__col">
         <h3 class="agenda-item__title">{{ agendaItem.title === null ? $options.agendaItemDefaultTitles.registration : agendaItem.title}}</h3>
         <p class="agenda-item__talk" v-if="agendaItem.type === 'talk'">
-          <span>Talk Speaker</span>
-          <span class="agenda-item__dot">{{ agendaItem.speaker }}</span>
+          <span>{{ agendaItem.speaker }}r</span>
+          <span class="agenda-item__dot"></span>
           <span class="agenda-item__lang">{{agendaItem.language }}</span>
         </p>
         <p>{{ agendaItem.description !== null ? agendaItem.description : null}}</p>

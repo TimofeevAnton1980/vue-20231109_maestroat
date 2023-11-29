@@ -4,6 +4,7 @@ import UiAlert from './UiAlert.js';
 import MeetupView from '../../06-MeetupView/components/MeetupView.js';
 import { fetchMeetupById } from '../meetupService';
 
+
 export default defineComponent({
   name: 'PageMeetup',
 
@@ -19,28 +20,35 @@ export default defineComponent({
   data() {
     return {
       meetup: null,
+      error: null,
+      newMeetapId: null
     }
   },
 
   watch: {
-      async meetupId() {
-        this.meetup= await fetchMeetupById(this.meetupId);
+    meetupId: {
+      immediate: true,
+      async handler(newValue, oldValue) {
+        try {
+          this.meetup = await fetchMeetupById(newValue);
+          this.newMeetapId = newValue;
+        } catch (err) {
+          this.error = err;
+        }
       }
-  },
-  async mounted() {
-    this.meetup = await fetchMeetupById(this.meetupId);
+    }
   },
 
   template: `
     <div class="page-meetup">
       <!-- meetup view -->
-      <MeetupView v-if="meetup" :meetup = 'meetup'/>
-      <UiContainer v-else>
+      <MeetupView v-if="meetup && !error && meetupId === newMeetapId" :meetup = 'meetup'/>
+      <UiContainer v-else-if="!error">
         <UiAlert>Загрузка...</UiAlert>
       </UiContainer>
 
-      <UiContainer v-if="meetup === 'Not found'">
-        <UiAlert>error</UiAlert>
+      <UiContainer  v-else-if="error" >
+        <UiAlert>{{ error?.message }}</UiAlert>
       </UiContainer>
     </div>`,
 });
